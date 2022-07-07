@@ -22,7 +22,7 @@
 | Command | `bin/conle make:command` | [Doc](https://symfony.com/doc/current/console.html#creating-a-command)<br>Don't forget the `parent::__construct();` 💥
 | Event subscriber/listener | Subs : `bin/console make:subscriber`<br>List : manually | [Doc](https://symfony.com/doc/current/event_dispatcher.html), Types of events :<br> - [Kernel](https://symfony.com/doc/current/reference/events.html),<br> - [Form](https://symfony.com/doc/current/form/events.html),<br> - [Doctrine](https://symfony.com/doc/current/doctrine/events.html#doctrine-lifecycle-subscribers) |
 | PHPUnit | `composer require phpunit --dev`<br>`bin/console make:test`<br>Start tests with `bin/phpunit` | [Doc assertions](https://phpunit.readthedocs.io/fr/latest/assertions.html)<br>`bin/phpunit --coverage-html ./tests/coverage/2022-07-04` |
-| Deploy | [Install](https://deployer.org/docs/6.x/installation)<br>Create your deploy.php file (or use [this one](deploy.php) and follow the TODO comments)<br>`dep first_deploy prod -f deploy.php` ✨ | Don't forget to gitignore this file !!! 💣 |
+| Deploy | [Install](https://deployer.org/docs/6.x/installation)<br>Create your deploy.php file (or use [this one](deploy.php) and follow the TODO comments)<br>`dep first_deploy prod -f deploy.php` ✨ | Don't forget to gitignore deploy.php file !!! 💣 |
 
 ## Rest API
 
@@ -32,5 +32,5 @@
 | --- | --- | --- |
 | Controllers | `bin/console make:controller --no-template` | --- |
 | Serializer | `composer require symfony/serializer`<br>Use [attributes groups](https://symfony.com/doc/5.4/components/serializer.html#attributes-groups) | When deserializing data don't forget to use `try` blocs as we don't know what it looks like... |
-| DoctrineDenormalizer | Copy [this file](doctrineDenormalizer.php) to your project | Nothing else to do, it uses Chain of responsability and so, will be executed automatically. |
+| DoctrineDenormalizer | Copy [this file](doctrineDenormalizer.php) to your project | Nothing else to do, it uses chain of responsability and so, will be executed automatically. |
 | Lexik JWT | `composer require lexik/jwt-authentication-bundle`<br>`bin/console lexik:jwt:generate-keypair`<br>[Configure](https://github.com/lexik/LexikJWTAuthenticationBundle/blob/2.x/Resources/doc/index.rst#symfony-53-and-higher) | Careful default token time to live is [1 hour](https://github.com/lexik/LexikJWTAuthenticationBundle/blob/2.x/Resources/doc/index.rst#configuration) |
