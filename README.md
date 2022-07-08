@@ -6,6 +6,7 @@
 
 | What | How to create/use | Extra |
 | --- | --- | --- |
+| Project | `composer create-project symfony/skeleton my_project`<br>`composer create-project symfony/website-skeleton my_project` | Skeleton => lighter app like microservice, console app or API<br>Website skeleton => traditional web app |
 | Database | `php bin/console doctrine:database:create` | --- |
 | Controller | `php bin/console make:controller` | [Doc](https://symfony.com/doc/5.4/routing.html)<br> `requirements={"param"="Regex"}` |
 | Entitie | `php bin/console make:migration`<br>`php bin/console doctrine:migrations:migrate` | When default repository methods are not enough : DQL and Query builder |
