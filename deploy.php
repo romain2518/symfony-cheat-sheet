@@ -111,14 +111,12 @@ task('init:database:drop', function() {
 // task('init:config:write:dev', function() {
 //     run('echo "APP_ENV=dev" > {{remote_server_target_repository}}/shared/.env.local');
 //     run('echo "DATABASE_URL={{env_database}}" >> {{remote_server_target_repository}}/shared/.env.local');
-//     run('echo "OMDBAPI_KEY={{env_omdbapikey}}" >> {{remote_server_target_repository}}/shared/.env.local');
 // });
 
 desc('overwrite the .env.local THEN write the PROD settings');
 task('init:config:write:prod', function() {
     run('echo "APP_ENV=prod" > {{remote_server_target_repository}}/shared/.env.local');
     run('echo "DATABASE_URL={{env_database}}" >> {{remote_server_target_repository}}/shared/.env.local');
-    run('echo "OMDBAPI_KEY={{env_omdbapikey}}" >> {{remote_server_target_repository}}/shared/.env.local');
 });
 
 // TODO: Check tasks and uncomment the ones you need
