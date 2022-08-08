@@ -2,6 +2,11 @@
 
 ## [Useful commands](useful-commands.md)
 
+## Useful files
+
+- [DoctrineDenormalizer](doctrineDenormalizer.php) (Nothing else to do but copy the file as it uses chain of responsibility)
+- [File uploader service](fileUploaderService.php)
+
 ## Non-API
 
 | What | How to create/use | Extra |
@@ -33,6 +38,5 @@
 | --- | --- | --- |
 | Controllers | `php bin/console make:controller --no-template` | --- |
 | Serializer | `composer require symfony/serializer`<br>Use [attributes groups](https://symfony.com/doc/5.4/components/serializer.html#attributes-groups) | When deserializing data don't forget to use `try` blocs as we don't know what it looks like... |
-| DoctrineDenormalizer | Copy [this file](doctrineDenormalizer.php) to your project | Nothing else to do, it uses chain of responsability and so, will be executed automatically. |
 | Lexik JWT | `composer require lexik/jwt-authentication-bundle`<br>`php bin/console lexik:jwt:generate-keypair`<br>[Configure](https://github.com/lexik/LexikJWTAuthenticationBundle/blob/2.x/Resources/doc/index.rst#symfony-53-and-higher) | Careful default token time to live is [1 hour](https://github.com/lexik/LexikJWTAuthenticationBundle/blob/2.x/Resources/doc/index.rst#configuration) |
 | CORS | `composer require cors`<br>Configure allowed origins in your .env | [Doc](https://github.com/nelmio/NelmioCorsBundle) |
