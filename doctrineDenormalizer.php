@@ -24,7 +24,7 @@ class DoctrineDenormalizer implements DenormalizerInterface
         return $typeIsEntity && $dataIsID;
     }
 
-    public function denormalize($data, string $type, ?string $format = null, array $context = []): mixed
+    public function denormalize($data, string $type, ?string $format = null, array $context = [])
     {
         $denormalizedEntity = $this->entityManagerInterface->find($type, $data);
 
