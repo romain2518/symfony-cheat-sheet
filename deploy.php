@@ -64,6 +64,11 @@ set('allow_anonymous_stats', false);
 // TODO
 set('keep_releases', 3);
 
+//! Potential bug fix on windows
+//@see https://github.com/deployphp/deployer/issues/1270
+// set('use_relative_symlinks', false);
+
+
 // ---------------------------------------------------------------------------
 // Deployment settings for the 'production' server
 // ---------------------------------------------------------------------------
