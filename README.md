@@ -7,6 +7,7 @@
 - [DoctrineDenormalizer](doctrineDenormalizer.php) (Nothing else to do but copy the file as it uses chain of responsibility)
 - [File uploader service](fileUploaderService.php)
 - [Auto update entity date properties with lifecycle events](./lifecycleAutoUpdateDate.md)
+- <a href="./MailHog_windows_amd64.exe" download>Download MailHog server (windows amd64)</a>
 
 ## Non-API
 
