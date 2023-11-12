@@ -112,7 +112,7 @@ adminer:
       - database
 ```
 
-WebSocket :
+WebSocket Server (Replace the command by your own command) :
 
 ```yaml
 websocket-server:

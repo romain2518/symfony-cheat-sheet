@@ -4,6 +4,7 @@
 
 ## Useful files
 
+- [Using the WebSocket Ratchet with Symfony](ratchet.md)
 - [Using docker with Symfony](docker.md)
 - [Auto update entity date properties with lifecycle events](./lifecycleAutoUpdateDate.md)
 - [Download MailHog server (windows amd64)](./MailHog_windows_amd64.exe)
