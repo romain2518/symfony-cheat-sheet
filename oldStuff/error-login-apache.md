@@ -1,4 +1,6 @@
-# Add this method to you authenticator
+# Error : login route doesn't work using Apache
+
+Add this method to you authenticator
 
 ```php
 public function supports(Request $request): bool

@@ -1,5 +1,5 @@
 <?php
-# src/Serializer/DoctrineDenormalizer.php
+# src/Serializer/DoctrineDenormalizer.php (Nothing else to do but copy the file as it uses chain of responsibility)
 namespace App\Serializer;
 
 use Doctrine\ORM\EntityManagerInterface;
