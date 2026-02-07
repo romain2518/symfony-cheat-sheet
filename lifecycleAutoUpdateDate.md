@@ -1,6 +1,6 @@
 # Auto update entity date properties with lifecycle events
 
-## Only lifecycle events
+## Implementation steps
 
 - Add `#[ORM\HasLifecycleCallbacks]` before the class
 - Add this method

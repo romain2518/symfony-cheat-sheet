@@ -1,28 +1,62 @@
 # Vich basic usage
 
-## Annotate the entity class with the Uploadable
+## Mapping
 
-- `use Vich\UploaderBundle\Mapping\Annotation as Vich;`
-- `#[Vich\Uploadable]`
-
-## File property
-
-With file validation :
-
-```php
-#[Vich\UploadableField(mapping: 'user_pictures', fileNameProperty: 'picturePath')]
-#[Assert\File(
-    maxSize: "5M",
-    mimeTypes: ["image/jpeg", "image/png"],
-)]
-private ?File $pictureFile = null;
+```yaml
+# config/packages/vich_uploader.yaml
+mappings:
+  # ...
+  products:
+    uri_prefix: /assets/images/products
+    upload_destination: '%kernel.project_dir%/public/assets/images/products'
+    namer: Vich\UploaderBundle\Naming\UniqidNamer
 ```
 
-Without file validation :
+## Entity
+
+Note:
+
+- $pictureFile is not a mapped field
+- $picturePath should be nullable for deletion to work
 
 ```php
-#[Vich\UploadableField(mapping: 'user_pictures', fileNameProperty: 'picturePath')]
-private ?File $pictureFile = null;
+use Vich\UploaderBundle\Mapping\Annotation as Vich;
+use Vich\UploaderBundle\Validator\Constraints as VichAssert;
+
+#[Vich\Uploadable]
+class Product {
+    #[Vich\UploadableField(mapping: 'user_pictures', fileNameProperty: 'picturePath')]
+    #[Assert\File(
+        maxSize: "5M",
+        mimeTypes: ["image/jpeg", "image/png"],
+    )]
+    #[VichAssert\FileRequired(
+        target: 'pictureFile',
+        message: 'Please upload a file.',
+    )]
+    private ?File $pictureFile = null;
+
+    #[ORM\Column(nullable: true)]
+    private ?string $picturePath = null;
+
+    public function getPictureFile(): ?File
+    {
+        return $this->pictureFile;
+    }
+
+    public function setPictureFile(?File $pictureFile = null): void
+    {
+        $this->pictureFile = $pictureFile;
+
+        if (null !== $pictureFile) {
+            /// It is required that at least one field changes if you are using doctrine
+            // otherwise the event listeners won't be called and the file is lost
+            $this->updatedAt = new \DateTime();
+        }
+    }
+
+    # ...
+}
 ```
 
 ## Getter & setter
@@ -33,7 +67,7 @@ public function getPictureFile(): ?File
     return $this->pictureFile;
 }
 
-public function setPictureFile(?File $pictureFile = null): self
+public function setPictureFile(?File $pictureFile = null): void
 {
     $this->pictureFile = $pictureFile;
 
@@ -42,33 +76,7 @@ public function setPictureFile(?File $pictureFile = null): self
         // otherwise the event listeners won't be called and the file is lost
         $this->updatedAt = new \DateTime();
     }
-
-    return $this;
 }
-```
-
-## Accept null on path porperty setter
-
-```php
-public function setPicturePath(?string $picturePath): self
-{
-    $this->picturePath = $picturePath;
-
-    return $this;
-}
-```
-
-## Mapping
-
-`config/packages/vich_uploader.yaml`
-
-```yaml
-mappings:
-    # ...
-    products:
-        uri_prefix: /assets/images/products
-        upload_destination: '%kernel.project_dir%/public/assets/images/products'
-        namer: Vich\UploaderBundle\Naming\UniqidNamer
 ```
 
 ## Form
@@ -105,81 +113,6 @@ class EditProduct extends AbstractType
 In controller, after editing object :
 
 ```php
-// Setting file properties to null as user object is serialized and saved in the session (a File is not serializable)
+// Setting file property to null as user object is serialized and saved in the session (a File is not serializable)
 $user->setPictureFile(null);
-```
-
-## Not blank validator
-
-Default NotBlank validator doesn't work with Vich file properties, therefore we can add a custom validator.
-
-```php
-<?php
-# src/Validator/NotBlankVich.php
-namespace App\Validator;
-
-use Symfony\Component\Validator\Attribute\HasNamedArguments;
-use Symfony\Component\Validator\Constraints\NotBlank;
-
-#[\Attribute(\Attribute::TARGET_PROPERTY | \Attribute::TARGET_METHOD | \Attribute::IS_REPEATABLE)]
-class NotBlankVich extends NotBlank
-{
-    public $target = null;
-    public $message = null;
-
-    #[HasNamedArguments]
-    public function __construct(string $target, string $message, array $groups = null, mixed $payload = null)
-    {
-        parent::__construct([], $message, null, null, $groups, $payload);
-
-        $this->target = $target;
-    }
-}
-```
-
-```php
-<?php
-# src/Validator/NotBlankVichValidator.php
-namespace App\Validator;
-
-use App\Validator\NotBlankVich;
-use Symfony\Component\PropertyAccess\PropertyAccess;
-use Symfony\Component\Validator\Constraint;
-use Symfony\Component\Validator\Constraints\NotBlankValidator;
-
-class NotBlankVichValidator extends NotBlankValidator
-{
-    /**
-     * {@inheritdoc}
-     */
-    public function validate($value, Constraint $constraint)
-    {
-        if ($constraint instanceof NotBlankVich && $constraint->target) {
-            $targetValue = PropertyAccess::createPropertyAccessor()->getValue($this->context->getObject(), $constraint->target);
-
-            if (!empty($targetValue)) {
-                return;
-            }
-        }
-
-        parent::validate($value, $constraint);
-    }
-}
-```
-
-To use :
-
-```php
-<?php
-
-namespace App\Entity;
-
-use App\Validator as CustomAssert;
-
-class Product
-{
-    #[Vich\UploadableField(mapping: 'anime_pictures', fileNameProperty: 'picturePath')]
-    #[CustomAssert\NotBlankVich(message: 'Please provide a picture to create a anime.', target: 'picturePath')]
-    private ?File $pictureFile = null;
-}
 ```
