@@ -33,7 +33,7 @@
 | Reset password | `php bin/console make:reset-password` | Notice : This uses symfony/mailer. |
 | Voter | `php bin/console make:voter` | |
 | Service | Create it manually | [Doc](https://symfony.com/doc/current/quick_tour/the_architecture.html#creating-services) |
-| Command | `php bin/console make:command` | [Doc](https://symfony.com/doc/current/console.html#creating-a-command) |
+| Command | `php bin/console make:command` | [Doc](https://symfony.com/doc/current/console.html#creating-a-command)<br>[Command to download fixture pictures](./DownloadFixturePicturesCommand.php) |
 | Event subscriber<br>Event listener | `php bin/console make:subscriber`<br>`php bin/console make:listener` | [Doc](https://symfony.com/doc/current/event_dispatcher.html), Types of events :<br> - [Kernel](https://symfony.com/doc/current/reference/events.html),<br> - [Form](https://symfony.com/doc/current/form/events.html),<br> - [Doctrine](https://symfony.com/doc/current/doctrine/events.html#doctrine-lifecycle-subscribers) |
 | Customize error pages | `composer require symfony/serializer-pack`<br>Add your template in `template/bundles/TwigBundle/Exception/error404.html.twig` | [Doc](https://symfony.com/doc/current/controller/error_pages.html) |
 
